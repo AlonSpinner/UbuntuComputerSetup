@@ -1,0 +1,1060 @@
+Computer Setup Instructions - dell xps 9575
+
+1) Ubuntu 18.04 to allow for ROS-Melodic boot key 
+
+2) Upon setup - had error: Permission error in software center on clean Ubuntu 18.04
+	tried this: https://www.reddit.com/r/linuxquestions/comments/am0nof/permission_error_in_software_center_on_clean/
+	a) $ sudo apt update
+	b) $ sudo apt upgrade (this took a while)
+	->the computer will restart
+	-> error still showed up, but I installed gitkraken to check and it worked fine
+
+	followed advice on link.. deleted the folder /home/[user]/.config/ibus/bus and then ran 
+	$ sudo gnome-software
+
+3) $ sudo apt install wget
+
+4) downloading chrome:
+	$ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+	$ sudo apt install ./google-chrome-stable_current_amd64.deb
+	-> delete the deb file you downloaded with wget in the home folder
+
+4) install git 
+	$sudo apt install git
+
+5) install gitkraken
+	$ wget https://release.gitkraken.com/linux/gitkraken-amd64.deb
+	$ sudo dpkg -i gitkraken-amd64.deb
+	-> delete .deb file in home folder
+
+6) installing WINE to allow windows programs
+	installing wine with https://wine.htmlvalidator.com/install-wine-on-ubuntu-18.04.html
+	
+	$ wget -nc https://dl.winehq.org/wine-builds/winehq.key
+	$ sudo -H gpg -o /etc/apt/trusted.gpg.d/winehq.key.gpg --dearmor winehq.key
+	$ sudo apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ bionic main
+	$ sudo apt update
+	$ wget -nc https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_18.04/amd64/libfaudio0_19.07-0~bionic_amd64.deb
+	$ wget -nc https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_18.04/i386/libfaudio0_19.07-0~bionic_i386.deb
+	$ sudo apt install ./libfaudio0_19.07-0~bionic_amd64.deb
+	$ sudo apt install ./libfaudio0_19.07-0~bionic_i386.deb
+	$ sudo apt install --install-recommends winehq-stable
+	$ wine winecfg -> install mono (once) and gecko (twice), edit windows 7 to windows 10 in the opened config panel
+
+7) allow exFAT Drive on ubuntu linux (my sandisk external ssd drive)
+	$ sudo add-apt-repository universe
+	$ sudo apt update 
+	$ sudo apt install exfat-fuse exfat-utils
+
+8) install curl
+	https://www.cyberciti.biz/faq/how-to-install-curl-command-on-a-ubuntu-linux/
+	$ sudo apt update && sudo apt upgrade
+	$ sudo apt install curl
+	$ curl --version
+	$ apt-cache search libcurl | grep python
+	$ sudo apt install python3-pycurl
+
+9) install nordVPN
+	$ sudo apt-get install ./nordvpn-release_1.0.0_all.deb
+	$ sudo apt-get update
+	$ sudo apt-get install nordvpn
+	
+	or maybe just: $ sh <(curl -sSf https://downloads.nordcdn.com/apps/linux/install.sh)
+	https://support.nordvpn.com/Connectivity/Linux/1047409422/How-can-I-connect-to-NordVPN-using-Linux-Terminal.htm
+	-> this had problems when trying to run commands like $nordvpn login
+	$ sudo usermod -aG nordvpn $USER' -> reboot
+	-> after reboot test by logging in: $nordvpn login
+	$ nordvpn connect
+	
+
+	To install GUI	
+	$ cd
+	$ mkdir repos
+	$ cd repos
+	$ git clone https://github.com/byoso/Nord-Manager
+	$ cd Nord-Manager
+	$ ./install.sh
+	-> RTFM - read the fucking manual!
+	-> btw, the program open a menu button in the top right hand side of the monitor 
+
+10) install transmission - torrent service
+	$ sudo apt install transmission
+	-> in order to download torrents I had to use my VPN which had problems... changed the connection protocol
+	$ nordvpn set protocol TCP
+
+11) install unrar
+	$ sudo apt-get install unrar
+
+12) install ros-melodic !!! THIS WILL BE DONE LATER. SKIP THIS ONE !!!
+	http://wiki.ros.org/melodic/Installation/Ubuntu
+	
+	$ sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+	$ curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+	$ sudo apt update
+	$ sudo apt install ros-melodic-desktop-full
+
+
+13) install windows virtual machine
+	instructions:
+		https://itsfoss.com/install-windows-10-virtualbox-linux/
+		there might be problem with secure boot: 
+			https://superuser.com/questions/1438279/how-to-sign-a-kernel-module-ubuntu-18-04
+		I also used these instructions but I don't think they are needed
+			https://stegard.net/2016/10/virtualbox-secure-boot-ubuntu-fail/
+
+	$ sudo apt install virtualbox -> password: funsudus (regular)
+	$ sudo reboot
+
+	after following the manual to create a dynamical virtual machine (4GB ram, 200GB ssd, I think this can be changed later), 	
+	I opened the VM and loggined into my microsoft account. 
+
+	I noticed I cant drag and drop in between discovered I had to install "windows guest additions"
+	This can be done automatically by going through the first two lines in section 4.2.1.1 in the link below (Devices->Insert Guest Addition CD Image...)
+	https://docs.oracle.com/en/virtualization/virtualbox/6.0/user/guestossupport.html -> Guest Additions
+	This is also a good video on the subject: 
+	Windows now had drivers install, it was much faster, and I could copy text from ubuntu host to windows guest.. but file dropping was still a problem for some reason.
+	
+	I also wanted to know how to do file sharing between the ubuntu host and windows guest
+	These are good links to look at: https://helpdeskgeek.com/virtualization/virtualbox-share-folder-host-guest/ AND https://www.youtube.com/watch?v=FYmck1G0fqY&ab_channel=TheHowToGuy123
+
+	One last thing.. "sending the shut down signal" didn't do anything. I had to go to the power options in the guest windows and change what pressing the power button does:
+	https://forums.virtualbox.org/viewtopic.php?f=8&t=98084
+
+		
+14) install GDebi package installer
+https://www.ubuntu18.com/install-gdebi-ubuntu-18/
+
+	$ sudo add-apt-repository universe
+	$ sudo apt-get update
+	$ sudo apt-get install gdebi-core
+	
+15) install crossover by codeweave #May not use this in the future, its a 2 week trail as an "extension" to wine
+	download deb file from  https://www.codeweavers.com/support/wiki/linux/linuxtutorial/install#deb
+	install with GDebi $ sudo gdebi crossover_21.0.0-1.deb
+
+	after reading about microsoft office's compatability in their forums I understood that they still have some problems. Virtual machine works great and I think I will stick with that.
+
+16) installing onedrive 
+	following https://gist.github.com/starlinq/0f98c6d9339497bb8ac42d67f66f60eb
+
+	$ sudo apt install build-essential
+	$ sudo apt install libcurl4-openssl-dev
+	$ sudo apt install libsqlite3-dev
+	$ sudo apt install pkg-config
+	$ sudo apt install git
+
+	$ cd ~/Downloads
+	$ sudo wget https://netcologne.dl.sourceforge.net/project/d-apt/files/d-apt.list -O /etc/apt/sources.list.d/d-apt.list
+	$ sudo apt-get update --allow-insecure-repositories
+	$ sudo apt-get -y --allow-unauthenticated install --reinstall d-apt-keyring
+	$ sudo apt-get update && sudo apt-get install dmd-compiler dub
+
+	$ git clone https://github.com/abraunegg/onedrive.git
+	$ cd onedrive
+	$ ./configure
+	$ make
+	$ sudo make install
+
+	$ onedrive -> authenticate
+
+	$ mkdir -p ~/OneDrive
+	$ cp config ~/.config/onedrive/config
+	$ cd
+	$ onedrive --synchronize
+
+	onedrive doesnt start when the user logs in. I will need to add "onedrive --monitor" to the command startup application
+	typing "how to add command to startup ubuntu" in google explained the "how to" right away.
+
+	Finally, I shared the onedrive folder with my windows virtual machine :)
+
+17) installing vscode  - I did that from the Ubuntu Software
+	note: typing "$ code ." will open vscode in the current folder :)
+
+18) Creating a link (aka shortcut) for important folders
+	We need to activate "Show action to create symbolic links" under the Behavior tabs of the Nautilus preferences
+	https://askubuntu.com/questions/861333/how-to-open-nautilus-file-manager-preferences#:~:text=Alt%20F3%20and%20%22More%20Actions,right%20corner%20of%20the%20window.
+
+	to show the original folder's path
+	$ pwd -P 
+	https://stackoverflow.com/questions/29789204/bash-how-to-get-real-path-of-a-symlink
+
+19) install "shutter" for screenshots. The software runs in ubuntu but I can paste the images into the windows VM easly
+
+20) install virtual enviorment manager for python - virtualenv
+	
+	https://www.quora.com/What-is-the-difference-between-python-virtualenv-and-a-conda-environment
+	"
+	Conda environments are essentially a replacement for virtualenv. Both conda environments and virtualenv are aimed at creating an “environment” with isolated package installs. 
+	They aim to solve the problem of having multiple python projects on the same system with conflicting package requirements. 
+	If you have project A that requires tensorflow-1.8 and project B that uses tensorflow-1.9,
+	these environments allow you to have the right version installed for each project.
+
+	The main difference between the two is that conda is a bit more full featured/”magic”. 
+	Conda has dedicated syntax for creating environments and installing packages, and can also manage installing different versions of python too. 
+	For virtualenv, you just activate the environment and then use all the normal commands.
+
+	For example, for conda the command for a new environment named “myenv” using python 3.4, scipy version 0.15.0, and packages astroid and babel of any version:
+	
+	$conda create -n myenv python=3.4 scipy=0.15.0 astroid babel 
+	
+	In virtualenv:
+
+	<manually install python 3.4 however your system installs it> 
+	$ virtualenv --python=/usr/bin/python3.4 myenv 
+	$ source myenv/bin/activate 
+	$ pip install scipy==0.15.0 
+	$ pip install astroid 
+	$ pip install babel 
+	"
+
+	https://deeplearning.lipingyang.org/2018/12/23/anaconda-vs-miniconda-vs-virtualenv/
+	"
+	Some context: Pip is a package manager, and virtualenv is an environment manager; and conda is both.
+	Specifically, conda is a packaging tool and installer that aims to do more than what pip does; it handles library dependencies outside of the Python packages as well as the Python packages themselves. 		Conda also creates a virtual environment, like virtualenv does.
+	Choose Virtualenv only when you have sudo access to the machine you are working on. 
+	It is much easier to setup conda rather than virtualenv for a regular (i.e., non sudo/root) user on a linux/Mac machine.
+	"
+
+	We will install virtualenv as we want less things to confine us. 
+	I also read somehere that packages that are installed with pip are different from those installed with conda, and so this may cause problems down the line when some package is only configured for pip.
+	
+
+	a) Installing virtualenv - installation is through python 3, but we can also create enviorments in python2
+		https://tech.serhatteker.com/post/2018-12/virtualenv/
+		
+		$ sudo apt-get install python3-pip
+		$ sudo pip3 install virtualenv
+
+
+	b) testing with PythonRobotics
+		
+		$ cd
+		$ cd repos
+		$ git clone https://github.com/AtsushiSakai/PythonRobotics
+		$ cd PythonRobotics
+		$ python3 -m venv env #this will create a folder called env which will hold all the packages and the such. It is recommended to put it under git ignore
+		$ source env/bin/activate %activate the enviorment
+		$ which python #confirm location of python interpreter:
+		$ pip3 install -r requirements.txt #installing packages from requirements.txt
+		!!! This failed because PythonRobotics was written in Python2 and we created an enviorment in Python3! (This was later discovered to be completely wrong)
+
+		a) deactivate the current enviorment -> $deactivate
+		b) delete the env folder
+		c) create a new python2 enviorment, this time in a hidden folder -> $ virtualenv -p /usr/bin/python2.7 .venv
+		d) source the new enviorment -> $ source .venv/bin/activate
+		e) install the requirements -> $pip install -r requirements.txt
+		!!! This also failed for some reason... I just installed the packages writen in requirements.txt manually
+		$pip install numpy
+		$pip install scipy
+		...
+		finally the last one had a problem, $pip install cvxpy -> ERROR: Could not build wheels for osqp which use PEP 517 and cannot be installed directly
+		to view list of packages insatlled on our env -> $pip list --local
+		!!! I opened the PythonRobotics README.md and noticed that they do require python 3.9... Trying with python 3 again! (deleting .venv after deactivating)
+
+
+		-> discovered that cvxpy requires python>3.7 and I was using 3.6.9
+		
+		Installing python 3.9
+		from https://askubuntu.com/questions/1318846/how-do-i-install-python-3-9:
+		$ sudo apt update
+		$ sudo apt install software-properties-common
+		$ sudo add-apt-repository ppa:deadsnakes/ppa 
+		$ sudo apt update
+		$ sudo apt install python3.9
+		$ python3.9 --version -> Python 3.9.x
+
+		$ virtualenv -p /usr/bin/python3.9 .venv
+		$ source .venv/bin/activate
+		
+		I noticed pip3 install faills... 
+		I looked into the default version of python the system which was running was python 2.7
+		To verify: open a new terminal, and write $python --version
+		To Change default: $ alias python=python3.9 (this will be needed on every new terminal, unless inserted into .bashrc)
+		-> this also failed
+
+		I tried this command:
+	 		$ sudo apt install python3.9-distutils 
+		following advice from https://stackoverflow.com/questions/55749206/modulenotfounderror-no-module-named-distutils-core
+		It solved pip3 install, but this still fails.
+		
+		Finaly, I installed the dev package for python 3.9 using:
+			$ sudo apt-get install python3.x-dev
+		Following advice from https://stackoverflow.com/questions/26053982/setup-script-exited-with-error-command-x86-64-linux-gnu-gcc-failed-with-exit.
+		This worked!
+	
+		To configure vs code to work with virtual enviorments, I read https://code.visualstudio.com/docs/python/environments:
+			a) open the search bar with cntrl+shift+p
+			b) seach "Python: Select Interpreter"
+			c) add/select the interpeter from .venv
+
+		Note: my virtual enviorment size with ~300MB. If im planning on having lots of projects, I might aswell learn to use virtualenvwrapper. 
+
+		another good read for command and such: https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/
+
+21) install dropbox
+	a) download the file from https://www.dropbox.com/install-linux
+	$ cd ~/Downloads
+	$ sudo gdebi dropbox*
+	You will probably be asked to restart the computer. Opening dropbox will open an application on the top right hand of the main screen, very much like the nordVPN addon.
+
+22) install virtualenvwrapper
+
+	guide: https://medium.com/@aaditya.chhabra/virtualenv-with-virtualenvwrapper-on-ubuntu-34850ab9e765
+	
+	$ sudo apt update
+	$ mkdir ~/.virtualenvs
+	$ sudo apt install virtualenvwrapper
+	$ export WORKON_HOME=~/.virtualenvs -> 
+	add "./usr/local/bin/virtualenvwrapper.sh" to ~./bashrc - This was wrong in my case..
+	INSTEAD: $ echo "source /usr/share/virtualenvwrapper/virtualenvwrapper.sh" >> ~/.bashrc
+
+	-> type $ virtualenvwrapper to view commands 
+
+	creating a venv in a "project" using virtualenvwrapper: having a "project" will cd to the correct dir when using the "workon" command
+	$ export PROJECT_HOME=$(pwd) #assuming terminal is in the project's dir
+	$ mkproject -p /usr/bin/python3.9 PythonRobotics #python3.9 is an example, here "PythonRobotics" is the venv's name
+	# if the project's path was not as you intended, you can use $ setvirtualenvproject while working on the project and inside the correct dir
+	$ deactivate
+	$ cd ..
+	$ workon PythonRobotics
+	$ pip install -r requirements.txt
+	#turns out that to view stuff in matplotlib I also need some graphics
+	$ pip3 install PyQt5
+
+
+23) Install ros melodic with all dependecies
+	following http://wiki.ros.org/melodic/Installation/Ubuntu
+	
+	$ sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+	$ curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+	$ sudo apt update
+	$ sudo apt install ros-melodic-desktop-full
+
+	$ echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc #change this if moving to noetic or other verison
+	$ sudo apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential
+	$ sudo apt install python-rosdep
+	$ sudo rosdep init
+	$ rosdep update
+
+	$ sudo apt-get install ros-melodic-catkin
+
+24) nautiulus -> opening current directory in file explorer
+	$ nautilus "$(pwd)"
+	
+25) learning how to create xml files...I use vscode to guide me. This is the extension I tried out:
+	https://marketplace.visualstudio.com/items?itemName=redhat.vscode-xml
+
+26) How to set up my Monitor at the lab:
+	https://askubuntu.com/questions/393400/is-it-possible-to-have-different-dpi-configurations-for-two-different-screens
+
+	$ xrandr --output eDP-1 --primary --mode 3840x2160 --scale 1x1 --rotate normal
+	$ xrandr --output DP-1-2 --mode 1920x1080 --scale 2x2 --pos 3840x1080 --rotate normal
+
+	$ sudo apt install arandr -> run arandr to confirm monitor locations
+	had some error "Gtk-Message: Failed to load module "canberra-gtk-module"
+			$ sudo apt-get install libcanberra-gtk-module:i386
+			$ sudo apt install libcanberra-gtk-module libcanberra-gtk3-module
+	from https://askubuntu.com/questions/342202/failed-to-load-module-canberra-gtk-module-but-already-installed
+	-> second one did the trick
+
+	did this aswell :https://askubuntu.com/questions/6137/saving-monitor-settings  -------- NOT SURE IF ANY GOOD, REMOVED INSTALLED ITEMS OF THIS
+	$ sudo wget -O /usr/local/sbin/update-monitor-position https://raw.githubusercontent.com/NicolasBernaerts/ubuntu-scripts/master/ubuntugnome/update-monitor-position
+	$ sudo chmod +x /usr/local/sbin/update-monitor-position
+	$ sudo wget -O /usr/share/applications/update-monitor-position.desktop https://raw.githubusercontent.com/NicolasBernaerts/ubuntu-scripts/master/ubuntugnome/update-monitor-position.desktop
+	$ sudo chmod +x /usr/share/applications/update-monitor-position.desktop
+
+	SOLUTION: (email I wrote mark)
+	After writing you the email I figured it must be the usb-c to HDMI. It worked perfectly in the past when connecting to a TV, but this is a 		monitor after-all.
+	I know it has an internal chip that converts DP data to HDMI data as the usb-c outputs DP.
+	I figured it must be some kind of an initialization function that is missed when the stars don't align (or in my case, some frequency).
+	Two solutions:
+	1) place a command to disconnect and reconnect the monitor on a loop, until initialization occurred.
+	2) switch to a usb-c to DP cable. 
+	
+	
+27) How to create new document from ubuntu GUI
+	https://www.how2shout.com/linux/how-to-create-a-file-in-ubuntu-linux-using-command-gui/
+	just run the command $ touch ~/Templates/Text\ document in a terminal
+	-> option is enabled now 
+
+28) running virtual enviorments with ROS 
+	https://medium.com/codeda/ros-run-python-in-virtual-env-8c579304b9c9
+
+29) terminator for muliple terminal windows with comf
+	$ sudo apt update
+	$ sudo apt install terminator
+
+	https://gnometerminator.blogspot.com/p/introduction.html
+
+30) install mendeley
+	from https://www.mendeley.com/guides/download-mendeley-desktop/ubuntu/instructions
+	$ sudo apt update
+	$ sudo apt install mendeleydesktop
+
+31) Brasero for .iso backup of computer - Found this not so useful currently
+	from https://vitux.com/how-to-create-an-iso-file-in-ubuntu/
+	$ sudo apt install brasero
+
+32) Backing up my system - NOT USED ANYMORE. I USE THE "deja dup" back utility which is the default one for ubuntu. it's listed as Backups with a safe icon
+	guide - https://ubuntuforums.org/showthread.php?t=35087: ALSO CONTAINS THE INSTRUCTIONS FOR RESTORING
+
+	What should I use to backup my system then?" might you ask. Easy; the same thing you use to backup/compress everything else; TAR. Unlike Windows, Linux doesn't restrict root access to anything, so you can just throw every single file on a partition in a TAR file!
+
+	$ sudo su
+	$ cd /
+	
+	$ tar cvpzf backup.tgz --exclude=/proc --exclude=/lost+found --exclude=/backup.tgz --exclude=/mnt --exclude=/sys /
+	OR 
+	$ tar cvpjf backup.tar.bz2 --exclude=/proc --exclude=/lost+found --exclude=/backup.tar.bz2 --exclude=/mnt --exclude=/sys /
+	
+
+	Restoration:
+	$ tar xvpfz backup.tgz -C /
+	OR
+	$ tar xvpfj backup.tar.bz2 -C /
+
+	$ mkdir proc
+	$ mkdir lost+found
+	$ mkdir mnt
+	$ mkdir sys
+	etc...
+
+	$ sudo reboot
+	
+	
+	$ tar -cvpzf /backup.tar.gz --exclude=/backup.tar.gz --one-file-system /
+
+	
+	a little different: https://askubuntu.com/questions/7809/how-to-back-up-my-entire-system
+	'''
+	To restore your files when the system goes pear-shaped, use a Live CD. Mount the bad system under /media or /mnt and then run tar xf /path/to/drive/with/backup.tar.gz -C /mnt (or /media).
+	'''
+
+33) Downloading and installing ubuntu-tweak ->>> This didnt work! 
+	https://github.com/tualatrix/ubuntu-tweak
+	"Ubuntu Tweak is a tool that makes it easy to configure your system and desktop settings."
+	Basically making paths managing a-lot easier
+	
+	$ sudo apt update
+	$ sudo apt upgrade
+	
+	from instructions:
+	$ sudo python setup.py install
+
+	had an error:
+	error: error in setup.cfg: command 'build' has no such option 'i18n'
+
+	$ sudo apt install python-distutils-extra resolved that error
+	from https://stackoverflow.com/questions/3810521/how-to-install-python-distutils#:~:text=you%20can%20use%20sudo%20apt,python3%2Ddistutils%20by%20root%20permission.&text=You%20can%20install%20the%20python,install%20python%2Ddistutils%20should%20suffice.
+
+	this didnt work... trying to open the program produces errors.
+	I can't remove it with '$ sudo apt remove' because 
+
+	The following link says to avoid installs with '$ python setup.py install' and to use pip instead.
+	Says I need to remove files manually
+	https://stackoverflow.com/questions/1550226/python-setup-py-uninstall
+	
+	luckily, the same link discovered that I can learn which files the installation wrote by reinstalling as follows:
+	$ python setup.py install --record files.txt
+	and then use '$ xargs rm -rf < files.txt' to delete all those files
+	In my case it didnt work and some I had to go and delete with '$ sudo rm -dir <>'
+
+34) number (33) was a failure, but we want to make location bar default in nautilus
+	a) aprrently just by pressing 'ctrl+L' will show the location bar in a text way.
+	
+	b) from https://www.omgubuntu.co.uk/2011/11/how-to-set-location-bar-in-nautilus-as-default
+	$ sudo apt update 
+	$ sudo apt install dconf-editor -y
+	open dconf Editor program via "show applications" that can be found in bottom left
+	then change "Always use location entry" in org>gnome>nautilus>preferences
+	
+	OR
+	
+	$ gsettings set org.gnome.nautilus.preferences always-use-location-entry true
+
+	Note: Sometimes when asked by ubuntu to pin point a file a special menu will show up that will ask the user to navigate.
+		this does not set this menu location entry to true, but 'ctrl+L' trick stil works
+
+35) creating my own bash commands!
+	with the help of https://medium.com/devnetwork/how-to-create-your-own-custom-terminal-commands-c5008782a78e
+
+	a) creating the file where the commands are stored 
+	$ cd ~
+	$ touch .my_custom_commands.sh
+	$ chmod +x .my_custom_commands.sh
+	$ gedit .my_custom_commands.sh
+	
+	copy the following to the file:	
+	#!/bin/bash
+	
+	# prints the input
+	function print_my_input() {
+	  echo 'Your input: ' $1
+	}
+
+	add 'source ~/.my_custom_commands.sh' to ~/.bashrc 
+	this can be done manually or by the following command $ echo "source ~/.my_custom_commands.sh" >> ~/.bashrc 
+
+	open a new terminal, then try $ print_my_input 'test'
+	
+	b) open nautilus in pwd
+	function nautilus_here() {
+		nautilus "$pwd"	
+	}
+
+	c) change terminal path of linke'd folder to real folder
+	function link2real() {
+		cd $(pwd -P)
+	}
+
+36) Fixing monitor problems... https://askubuntu.com/questions/1033785/external-monitor-not-detected-on-ubuntu-18-04
+
+37) add apps to right click (I used it for gitkraken and terminator)
+
+	https://ubuntuhandbook.org/index.php/2019/01/install-nautilus-actions-ubuntu-18-04/
+	https://www.youtube.com/watch?v=b2HAko2t__E&ab_channel=AJReissig
+	
+	$ sudo add-apt-repository ppa:daniel-marynicz/filemanager-actions #PPA is a personal package archive
+	$ sudo apt update #need to update so it knows about the add PPA
+	$ sudo apt install filemanager-actions-nautilus-extension
+
+	the program is called filemanager-actions and can be found through the "show applications"
+
+	Note about PPAs: from https://itsfoss.com/how-to-remove-or-delete-ppas-quick-tip/
+	'''
+	in the effort to install various applications in Ubuntu or other Linux distribution, you often end up adding several PPA.
+
+	Over the time these PPAs might not be updated with the latest version of the operating system. This might create trouble when you try 		updating Ubuntu. You may end up with “Repository does not have a release file” error.
+
+	You may have other reasons as well for deleting or removing a PPA from your system. Whatever be your reason, let me show you how to 		remove a PPA from your system.
+
+	Note: You should uninstall the application in Ubuntu which was installed by the PPA before removing the PPA itself. You can use the ‘apt 		remove’ command for that.
+	'''
+
+	legend for "%<>" parameters:
+	https://askubuntu.com/questions/783292/what-do-the-various-percent-parameters-in-context-menu-actions-or-desktop-f
+		for gitkraken: 
+			COMMAND: 
+				Path: gitkraken
+				Parameters: -p %f
+				Working Directory %f
+
+		for terminator: 
+			COMMAND: 
+				Path: terminator
+				Parameters:
+				Working Directory %f
+
+38) setting up zoom
+	$ sudo apt update	
+	$ wget -O /tmp/zoom.deb https://zoom.us/client/latest/zoom_amd64.deb
+	$ sudo dpkg -i /tmp/zoom.deb -> produces an error
+	$ sudo apt-get install libxcb-xtest0 -> fixes the error
+	$ sudo dpkg -i /tmp/zoom.deb -> completes sucessfuly
+
+39) install numpy on default python interpeter
+	$ sudo apt install pip
+	$ pip install python
+	$ python
+	$ import numpy
+	$ print numpy.array([5])
+	$ quit()
+
+40) install ssh
+	$ sudo apt install ssh
+
+41) install lm-sensors to check cpu temprature
+	$ sudo apt install lm-sensors
+	$ watch -n 2 sensors
+
+42) installing julia
+	$ wget https://julialang-s3.julialang.org/bin/linux/x64/1.6/julia-1.6.3-linux-x86_64.tar.gz
+	$ tar -xvzf julia-1.6.3-linux-x86_64.tar.gz
+	$ sudo mv julia-1.6.3/ /opt/	
+	$ sudo ln -s /opt/julia-1.6.3/bin/julia /usr/local/bin/julia
+
+43) installing spotify
+ 	$ snap install spotify
+
+44) installing blender with blenderBIM
+	a) installed belendr from the 'Ubuntu Software' ... probably can use $ snap install spotify
+	b) https://blenderbim.org/download.html -> download for linux
+		-> open the installation instruction:
+			Open Blender -> Edit -> Preferences -> Add-Ons -> Choose the downloaded zip -> Install -> click the little box
+
+45) make microphone work
+	https://askubuntu.com/questions/508221/sound-input-device-microphone-not-working
+	$ sudo apt-get install pavucontrol
+
+46) install checkInstall to track software that is installed on computer from source.
+	https://help.ubuntu.com/community/CheckInstall
+
+	$ sudo apt update
+	$ sudo apt upgrade
+	$ sudo apt install checkinstall
+
+	"To install, type “sudo checkinstall” instead of 'sudo make install'. Then, 'checkinstall' will create a . deb file (Debian package) and install it"
+
+47) fix my sony wh1000xm3 having ambient on even though I want noice cancelation (when connected to this ubuntu laptop, on phone works perfectly fine)
+	I MANAGED TO UPDATE BLUEZ PACKAGE BUT IT HAD NO AFFECT ON MY PROBLEM. LEARNT A FEW TRICKS IN THE PROCESS... BUT NOTHING TO DO HERE
+
+	from: https://newbedev.com/sony-noise-cancelling-headphones-wh-1000xm2-3-and-bluetooth-initial-autoconnect
+	-> download bluez from http://www.bluez.org/release-of-bluez-5-62/ (http://www.bluez.org/)
+	$ tar -xf bluez-5.62.tar.xz bluez-5.62
+	$ cd bluez-5.62
+	$ sudo apt-get install libical-dev -> wasnt sufficent in my case
+	$ ./configure -> failed
+	$ sudo apt install libdbus-1-dev libudev-dev libical-dev libreadline-dev
+	$ ./configure -> success
+	$ make
+	$ sudo make install #DONT DO THIS -> READ ON
+	$ sudo service bluetooth restart OR $ sudo reboot
+
+	more info https://scribles.net/updating-bluez-on-raspberry-pi-from-5-43-to-5-50/
+	For some reason this is not updating my bluez versioN!! ?!? ARRR WHAT TO DO
+
+	I understood that the older version 5.48 is "taking hold" on some file not letting the installation write onto them.
+	https://askubuntu.com/questions/1062171/dpkg-deb-error-paste-subprocess-was-killed-by-signal-broken-pipe
+
+	using "$ sudo checkinstall" I created a .deb package which I tried to then install with forcing overwrite: THIS WAS SCARY AS SHIT
+	$ sudo dpkg -i --force-overwrite bluez_5.52-1_amd64.deb
+	$ sudo apt -f install
+	$ sudo reboot 
+	$ apt list --installed > txt   --> found "bluez/now 5.52-1 amd64 [installed,local]"
+	
+	# But I couldnt "put the blueooth on"
+	$ bluetoothd -v #doesnt work
+	$ sudo apt remove bluez
+	-> tried again... $ cd /home/alon/Downloads/bluez-5.52
+	$ sudo checkinstall
+	$ sudo reboot
+
+	#this time I can put bluetooth on, but cant connect to devices (it connects and then quickly disconnects)
+	$ bluetoothd -v #doesnt work
+	$ sudo dpkg -r bluez -> a little different from "apt remove" https://askubuntu.com/questions/428350/remove-package-with-apt-get-or-dpkg
+	# the better practice is "apt remove"
+	$ sudo apt install bluez
+	'''
+	dpkg: warning: unable to delete old directory '/usr/local/share/man/man1': Directory not empty
+	dpkg: warning: unable to delete old directory '/usr/local/share/man': Directory not empty
+	dpkg: warning: unable to delete old directory '/usr/local/share': Directory not empty
+	dpkg: warning: unable to delete old directory '/usr/local/lib': Directory not empty
+	dpkg: warning: unable to delete old directory '/usr/local/bin': Directory not empty
+	dpkg: warning: unable to delete old directory '/usr/local': Directory not empty
+	'''
+	$ sudo reboot
+	$ bluetoothd -v --> works 
+	# still cant connect properlly... we are escilating:
+
+	from https://askubuntu.com/questions/489114/complete-removal-of-all-bluetooth-related-packages
+	$ sudo apt-get purge blueman bluez-utils bluez bluetooth && sudo apt-get autoremove && sudo apt-get autoclean
+	$ sudo apt install bluez
+	$ sudo apt install bluetooth
+	$ sudo reboot
+
+	# Stil have disconnection issues when trying to connect
+	https://askubuntu.com/questions/1037370/ubuntu-18-04-bluetooth-device-disconnects-right-after-connect-on-lenovo-p50
+	$ sudo apt install pulseaudio-module-bluetooth
+	$ killall pulseaudio
+	# OKAY WE ARE BACK TO SQUARE ONE! CONNECTED BUT CRAPPY NO NOISE CANCELLING :)
+
+	# Now that I am brave I can: 
+	$ sudo apt purge bluez
+	$ cd /home/alon/Downloads/bluez-5.52 #where my package is waiting for me
+	$ sudo checkinstall
+	$ sudo reboot
+
+	# Now I can't turn bluetooth back on... no worries we learnt a few things
+	# Note: apt list --installed > txt  ---> bluez 5.52 is installed
+	$ sudo apt remove bluez
+	$ cd /home/alon/Downloads/bluez-5.52
+	$ sudo checkinstall
+	$ sudo reboot
+	
+	# still not being able to turn bluetooth on after reboot. try on version 5.48
+	$ sudo apt remove bluez
+	$ sudo apt install bluez
+	'''
+	dpkg: warning: unable to delete old directory '/usr/local/share/man': Directory not empty
+	dpkg: warning: unable to delete old directory '/usr/local/share': Directory not empty
+	dpkg: warning: unable to delete old directory '/usr/local/lib': Directory not empty
+	dpkg: warning: unable to delete old directory '/usr/local/bin': Directory not empty
+	dpkg: warning: unable to delete old directory '/usr/local': Directory not empty
+
+	'''
+	$ sudo reboot
+	# -> bluetooth connection works but disconnects all the time
+	$ sudo apt install pulseaudio-module-bluetooth		
+	$ killall pulseaudio #-> works like before... not quite: sometimes the ambient noise just quites down? not sure
+	$ arecord filename.wav #does work... 
+
+	$ sudo dpkg -i --force-overwrite bluez_5.52-1_amd64.deb
+	$ sudo apt -f install
+	$ sudo reboot 
+	# -> bluetooth is turned off and cant turn on
+	$ sudo apt remove bluez
+	$ sudo apt install bluez
+	$ sudo reboot
+	$ sudo apt install pulseaudio-module-bluetooth		
+	$ killall pulseaudio
+
+	$ sudo systemctl start bluetooth
+	$ systemctl status bluetooth
+
+	https://askubuntu.com/questions/883244/after-compiling-bluez-5-43-from-source-bluetooth-v-still-returns-5-41
+	points out that bluetoohd may be found in /usr/local/libexec/bluetooth and needs to be symlinked to /usr/local/bin
+
+	$ sudo ln -s /usr/local/libexec/bluetooth/bluetoothd /usr/local/bin/bluetoothd
+
+	in https://askubuntu.com/questions/1139404/sony-noise-cancelling-headphones-wh-1000xm2-3-and-bluetooth-initial-autoconnec
+	it was suggested to run "$ systemctl daemon-reload" after the sudo make install.
+	'''
+	be executed. This will delete the previous configuration created by generators, re-run all generators, and cause systemd to reload units from disk.
+	'''
+	it also suggeested to run
+	$ sudo service bluetooth restart #this failed
+
+	https://unix.stackexchange.com/questions/608116/bluetooth-wont-turn-on-on-ubuntu-20-04
+	https://askubuntu.com/questions/804946/systemctl-how-to-unmask
+
+	$ systemctl unmask bluetooth.service
+	$ sudo systemctl enable bluetooth
+	$ sudo systemctl start bluetooth
+	$ sudo service bluetooth restart #will work
+
+	$ sudo apt install blueman -> reveals more information
+	#somthing about installation paths still seems problematic
+
+	This tell us how to use the --prefix argument in the ./configure	
+	https://askubuntu.com/questions/891835/what-does-prefix-do-exactly-when-used-in-configure
+	https://raspberrypi.stackexchange.com/questions/66540/installing-bluez-5-44-onto-raspbian
+
+	$ sudo apt install bluez
+	$ whereis bluetoothd --> bluetoothd: /usr/sbin/bluetoothd /usr/share/man/man8/bluetoothd.8 /usr/share/man/man8/bluetoothd.8.g
+	$ cd ~/Downloads/bluez-5.52
+	$ ./configure --prefix=/usr --mandir=/usr/share/man --sysconfdir=/etc --localstatedir=/var --enable-experimental
+	$ make
+	$ sudo checkinstall
+	$ sudo ln -s /usr/libexec/bluetooth/bluetoothd /usr/lib/bluetooth/bluetoothd #these links won't be removed with '$ sudo apt remove bluez'
+	$ sudo ln -s /usr/local/libexec/bluetooth/bluetoothd /usr/local/bin/bluetoothd
+	$ sudo apt install pulseaudio-module-bluetooth	
+	$ killall pulseaudio
+	$ sudo systemctl daemon-reload
+
+	
+	# returning things to how they were
+	$ sudo apt purge bluez
+	$ sudo rm /usr/lib/bluetooth/bluetoothd
+	$ sudo rm /usr/local/bin/bluetoothd
+	$ sudo apt install bluez #version 5.48
+	$ sudo apt install pulseaudio-module-bluetooth	
+	$ killall pulseaudio
+	$ sudo systemctl daemon-reload
+
+48) install cmake version 3.22 WITHOUT REMOVING THE DEFAULT 3.10
+	When upgrading we can remove and then install the new version, but removing cmake 3.10 will also remove critical ROS files which will break the ROS installation. 
+	We will install cmake 3.12 localy and call on it when we want!
+	https://answers.ros.org/question/293119/how-can-i-updateremove-cmake-without-partially-deleting-my-ros-distribution/
+
+	$ cd ~/Downloads
+	$ wget https://github.com/Kitware/CMake/releases/download/v3.22.0-rc1/cmake-3.22.0-rc1.tar.gz #the link was manually obtained from https://cmake.org/download/
+	$ tar -xf cmake-3.22.0-rc1.tar.gz
+	$ cd cmake-3.22.0-rc1/
+	$ ./bootstrap --prefix=$HOME/LocalInstalls/cmake-install
+	$ make
+	$ make install
+
+	#These two export lines make sure your using the updated cmake and not the system one:
+	$ export PATH=$HOME/LocalInstalls/cmake-install/bin:$PATH
+	$ export CMAKE_PREFIX_PATH=$HOME/LocalInstalls/cmake-install:$CMAKE_PREFIX_PATH
+
+Notes on "sudo make install" vs "make install" from https://unix.stackexchange.com/questions/20953/difference-between-make-install-and-sudo-make-install
+	'''
+	As has been answered above, sudo make install lets you install the files in directories which are otherwise read-only to you as a user.
+
+	The problem I can foresee is that at a later date you may want to uninstall or upgrade the program. If you still have the source code directory tree then a make uninstall will uninstall the program for you but if, as many other typical users, you had deleted the source code directory tree then you are out of luck. And since you have not installed the program using a package management system, you may also be unable to uninstall the program that way.
+
+	The best way to install such programs may be to install them in your home directory. Pass the option --prefix=/home/<user>/<some>/<directory> to ./configure. This will allow you to use make install instead of sudo make install since /home/<user>/<some>/<directory> is writable by you. Also uninstallation is a snap -- rm -rf /home/<user>/<some>/<directory>
+	'''
+
+49) getting ifcopenshell python source code - IN THE END I JUST USED CONDA TO GET THIS IN ARTICLE 50
+	http://ifcopenshell.org/python -> download the version you want, its the whole source
+	
+50) installing pythonocc-core, ifcopenshell AND miniconda #SKLIP ALL TILL LAST SECTION POINTED OUT WITH (SUCCESS!!!)
+	https://github.com/tpaviot/pythonocc-core
+	https://github.com/tpaviot/pythonocc-core/blob/master/INSTALL.md
+	
+	
+	$ cd ~/Downloads
+	$ git clone git://github.com/tpaviot/pythonocc-core.git
+	$ cd pythonocc-core
+	$ mkdir cmake-build
+	$ cd cmake-build	
+	$ cmake .. #this failed.. had to use updated local cmake
+	#use cmake 3.22
+	$ export PATH=$HOME/LocalInstalls/cmake-install/bin:$PATH 
+	$ export CMAKE_PREFIX_PATH=$HOME/LocalInstalls/cmake-install:$CMAKE_PREFIX_PATH
+	
+	$ cmake .. #this failed, had to install swig $sudo apt install swig
+	$ cmake .. # another fail:
+	'''
+	 Could not find a package configuration file provided by "OpenCASCADE"
+	  (requested version 7.5.2) with any of the following names:
+	''
+	https://github.com/trelau/SMESH/issues/17
+
+	# instead of just 'cmake', try: (from https://wiki.freecadweb.org/PythonOCC README.md)
+	$ cmake -DOCE_INCLUDE_PATH=/usr/include/opencascade -DOCE_LIB_PATH=/usr/lib/x86_64-linux-gnu ..
+	'''
+	CMake Error at CMakeLists.txt:160 (message):
+	  gp_Pnt.hxx can not be found.
+	'''
+	#gp_Pnt.hxx is a library for points.. to internal to be missing. Let's go over this again from the start
+
+	$ cd ~/Downloads
+	$ rm -r pythonocc-core #delete old git folder if exists
+	$ git clone git://github.com/tpaviot/pythonocc-core.git pythonocc
+	$ cd pythonocc
+	$ mkdir build
+	$ cd build
+	$ export PATH=$HOME/LocalInstalls/cmake-install/bin:$PATH 
+	$ export CMAKE_PREFIX_PATH=$HOME/LocalInstalls/cmake-install:$CMAKE_PREFIX_PATH
+	$ cmake -DOCE_INCLUDE_PATH=/usr/include/opencascade -DOCE_LIB_PATH=/usr/lib/x86_64-linux-gnu ..
+	'''	
+	CMake Error at CMakeLists.txt:160 (message):
+	 gp_Pnt.hxx can not be found.
+	'''
+	#looking for what gp_Pnt.hxx is online.. this is far too basic of a file to be a missing package. Its a class header for a point 	[X,Y,Z]...
+	# I am completely missing what should be inside /usr/include/opencascade
+	
+	---------------
+	time to acutally read the installation requirements in https://github.com/tpaviot/pythonocc-core/blob/master/INSTALL.md 
+	--------------
+	
+	STUCK PATH NUMBER 1:
+	Installing OpenCascade (https://dev.opencascade.org/, there is a complete online documentation)
+	$ cd ~/Downloads
+	$ wget https://git.dev.opencascade.org/gitweb/?p=occt.git;a=snapshot;h=0dc2c377fc5a2d8cf065f4ec005e356240cb484c;sf=tgz
+	$ tar -xf oce_0.18.3-1build1.debian.tar.xz
+	$ cd debian
+	#now I'm not sure what to do with all this
+
+	STUCK PATH NUMBER 2:
+	ehhh https://github.com/IfcOpenShell/ifcopenshell-jupyterhub suggested to install with a docker.
+	I ran the first two lines and am now stuck with it....
+	$ curl -fsSL get.docker.com -o get-docker.sh
+	$ sudo sh get-docker.sh
+	#Godamnit alon...
+	
+	------------------------------ trying something new from IfcOpenShell git .md (INSTALLING IfcOpenShell)
+	https://github.com/IfcOpenShell/IfcOpenShell
+	$ sudo apt update
+	$ sudo apt upgrade
+	$ sudo apt-get install git cmake gcc g++ libboost-all-dev
+	$ sudo apt-get install liboce-foundation-dev liboce-modeling-dev liboce-ocaf-dev liboce-visualization-dev liboce-ocaf-lite-dev
+	$ sudo apt-get install libpcre3-dev libxml2-dev
+
+	$ git clone https://github.com/KhronosGroup/OpenCOLLADA.git
+	$ cd OpenCOLLADA
+	$ git checkout HEAD
+	$ mkdir build && cd build
+	$ cmake ..
+	$ make -j$(nproc)
+	$ sudo checkinstall #I named the package 'opencollada' # I have to say I'm not sure why I built this...
+
+	$ sudo apt-get install python-all-dev swig
+	
+	$ cd ~/Downloads
+	$ git clone https://github.com/IfcOpenShell/IfcOpenShell/
+	$ cd IfcOpenShell
+	$ mkdir build
+	$ cd build
+	#from article "install cmake version 3.22 WITHOUT REMOVING THE DEFAULT 3.10"
+	$ export PATH=$HOME/LocalInstalls/cmake-install/bin:$PATH
+	$ export CMAKE_PREFIX_PATH=$HOME/LocalInstalls/cmake-install:$CMAKE_PREFIX_PATH 
+	$ cmake ../cmake -DOCC_LIBRARY_DIR=/usr/lib/x86_64-linux-gnu/ \
+      -DOPENCOLLADA_INCLUDE_DIR="/usr/local/include/opencollada" \
+      -DOPENCOLLADA_LIBRARY_DIR="/usr/local/lib/opencollada"  \
+      -DPCRE_LIBRARY_DIR=/usr/lib/x86_64-linux-gnu/
+	'''
+	CMake Error at CMakeLists.txt:833 (ADD_SUBDIRECTORY):
+	The source directory
+
+	/home/alon/Downloads/IfcOpenShell/src/svgfill
+
+	does not contain a CMakeLists.txt file.
+
+	'''
+	
+	#these guys... I tell ya
+	# I found online: https://github.com/IfcOpenShell/svgfill
+	$ cd ~/Downloads/IfcOpenShell/src
+	$ git clone https://github.com/IfcOpenShell/svgfill
+	$ cd ..
+	$ cd build
+	$ cmake ../cmake -DOCC_LIBRARY_DIR=/usr/lib/x86_64-linux-gnu/ \
+      -DOPENCOLLADA_INCLUDE_DIR="/usr/local/include/opencollada" \
+      -DOPENCOLLADA_LIBRARY_DIR="/usr/local/lib/opencollada"  \
+      -DPCRE_LIBRARY_DIR=/usr/lib/x86_64-linux-gnu/
+	'''
+	CMake Error at /home/alon/Downloads/IfcOpenShell/src/svgfill/CMakeLists.txt:48 (message):
+	  Unable to find GMP library files, aborting
+	'''
+	https://stackoverflow.com/questions/7351205/where-to-find-gmp-h   --> $ sudo apt install libgmp3-dev
+
+	trying to cmake again:
+		$ cmake ../cmake -DOCC_LIBRARY_DIR=/usr/lib/x86_64-linux-gnu/ \
+      -DOPENCOLLADA_INCLUDE_DIR="/usr/local/include/opencollada" \
+      -DOPENCOLLADA_LIBRARY_DIR="/usr/local/lib/opencollada"  \
+      -DPCRE_LIBRARY_DIR=/usr/lib/x86_64-linux-gnu/
+	
+	'''
+	CMake Error at CMakeLists.txt:252 (FIND_PATH):
+	  Could not find OCC_INCLUDE_DIR using the following files:
+	  Standard_Version.hxx, [PATHS, /usr/include/occt, /usr/include/oce,
+	  /usr/include/opencascade, ]
+
+	'''
+	Reading the documentation on the git (https://github.com/IfcOpenShell/IfcOpenShell) the author warned me of this
+	trying to cmake again, this time added OCC directory (im guessing that is oce?)
+	$ cmake ../cmake -DOCC_LIBRARY_DIR=/usr/lib/x86_64-linux-gnu/ \
+      -DOPENCOLLADA_INCLUDE_DIR="/usr/local/include/opencollada" \
+      -DOPENCOLLADA_LIBRARY_DIR="/usr/local/lib/opencollada"  \
+      -DPCRE_LIBRARY_DIR=/usr/lib/x86_64-linux-gnu/  \
+      -DOCC_INCLUDE_DIR=/usr/include/oce
+
+	Now again with this:
+	'''
+	CMake Error at /home/alon/Downloads/IfcOpenShell/src/svgfill/CMakeLists.txt:48 (message):
+	Unable to find GMP library files, aborting
+	'''
+
+	tried installing 32bit version of gmp for nothing:
+	$ sudo apt install libgmp3-dev:i386
+
+
+------------------------------------------ going back to install pythonocc-core
+ 
+	# I have noticed that the file I missed before, "gp_Pnt.hxx" exists in  /usr/include/oce
+
+	FROM THE START!
+	$ cd ~/Downloads
+	$ git clone git://github.com/tpaviot/pythonocc-core.git pythonocc
+	$ cd pythonocc
+	$ mkdir build	
+	$ cd build
+	#from article "install cmake version 3.22 WITHOUT REMOVING THE DEFAULT 3.10"
+	$ export PATH=$HOME/LocalInstalls/cmake-install/bin:$PATH
+	$ export CMAKE_PREFIX_PATH=$HOME/LocalInstalls/cmake-install:$CMAKE_PREFIX_PATH 
+	$ cmake ..
+	$ cmake -DOCE_INCLUDE_PATH=/usr/include/oce -DOCE_LIB_PATH=/usr/lib/x86_64-linux-gnu ..
+	$ make
+	'''
+	[  0%] Swig compile src/SWIG_files/wrapper/FSD.i for python
+	/usr/include/oce/Standard_Macro.hxx:23: Error: Macro 'Handle' redefined,
+	/home/alon/Downloads/pythonocc/src/SWIG_files/wrapper/../common/OccHandle.i:55: Error: previous definition of 'Handle'.
+	/home/alon/Downloads/pythonocc/src/SWIG_files/wrapper/NCollection.i:73: Error: Unable to find 'NCollection_Lerp.hxx'
+	CMakeFiles/FSD_swig_compilation.dir/build.make:73: recipe for target 'CMakeFiles/_FSD.dir/FSDPYTHON.stamp' failed
+	make[2]: *** [CMakeFiles/_FSD.dir/FSDPYTHON.stamp] Error 1
+	make[2]: *** Deleting file 'CMakeFiles/_FSD.dir/FSDPYTHON.stamp'
+	CMakeFiles/Makefile2:1016: recipe for target 'CMakeFiles/FSD_swig_compilation.dir/all' failed
+	make[1]: *** [CMakeFiles/FSD_swig_compilation.dir/all] Error 2
+	Makefile:135: recipe for target 'all' failed
+	make: *** [all] Error 2
+	'''
+
+	This got me here: https://github.com/tpaviot/pythonocc-core/issues/942
+	'''
+	For future reference: this is not a pythonocc bug, but a bug of CMake's macro OpenCASCADEConfig.cmake shipped with package sci-libs/opencascade-7.4.0 by distro Gentoo. Here is Gentoo's bug report, and here is OpenCASCADE's bug report.
+	'''
+
+
+---------------------------------trying with conda (SUCCESS!!!)
+
+	$ cd ~/Downloads
+	$ wget https://repo.anaconda.com/miniconda/Miniconda3-py39_4.10.3-Linux-x86_64.sh
+	$ chmod +x Miniconda3-py39_4.10.3-Linux-x86_64.sh
+	$ ./Miniconda3-py39_4.10.3-Linux-x86_64.sh
+	# I installed miniconda3 in /home/alon/LocalInstalls
+	'''
+	WARNING:
+	    You currently have a PYTHONPATH environment variable set. This may cause
+	    unexpected behavior when running the Python interpreter in Miniconda3.
+	    For best results, please verify that your PYTHONPATH only points to
+	    directories of packages that are compatible with the Python interpreter
+	    in Miniconda3: /home/alon/LocalInstalls/miniconda3
+	Do you wish the installer to initialize Miniconda3
+	by running conda init? [yes|no]
+	[no] >>> yes #THIS IS MY ACTION
+	./Miniconda3-py39_4.10.3-Linux-x86_64.sh: 472: ./Miniconda3-py39_4.10.3-Linux-x86_64.sh: [[: not found
+	no change     /home/alon/LocalInstalls/miniconda3/condabin/conda
+	no change     /home/alon/LocalInstalls/miniconda3/bin/conda
+	no change     /home/alon/LocalInstalls/miniconda3/bin/conda-env
+	no change     /home/alon/LocalInstalls/miniconda3/bin/activate
+	no change     /home/alon/LocalInstalls/miniconda3/bin/deactivate
+	no change     /home/alon/LocalInstalls/miniconda3/etc/profile.d/conda.sh
+	no change     /home/alon/LocalInstalls/miniconda3/etc/fish/conf.d/conda.fish
+	no change     /home/alon/LocalInstalls/miniconda3/shell/condabin/Conda.psm1
+	no change     /home/alon/LocalInstalls/miniconda3/shell/condabin/conda-hook.ps1
+	no change     /home/alon/LocalInstalls/miniconda3/lib/python3.9/site-packages/xontrib/conda.xsh
+	no change     /home/alon/LocalInstalls/miniconda3/etc/profile.d/conda.csh
+	modified      /home/alon/.bashrc
+	'''		
+
+	$ source ./bashrc
+	$ conda create --name=pyoccenv python=3.9
+	$ conda activate pyoccenv
+	$ conda install -c conda-forge pythonocc-core=7.5.1
+	$ conda install -c conda-forge -c oce -c dlr-sc -c ifcopenshell ifcopenshell #need this for the "added value"
+
+	# https://github.com/tpaviot/pythonocc-demos - DEMOS
+	# https://github.com/tpaviot/pythonocc-documentation - Documentation
+	
+
+51) Deja Dup backup my system!	
+	https://www.linux.com/topic/desktop/total-system-backup-and-recall-deja-dup/#:~:text=The%20first%20thing%20to%20do,backed%20up%2C%20and%20click%20Add.
+	Dont backup onedrive or dropbox - that is retarded.
+
+52) Install Matlab
+	b. download from the website - https://www.mathworks.com/downloads/web_downloads/
+	a. unzip
+	c. install (I installed on $HOME/LocalInstalls/MATLAB/2021b)
+		https://www.mathworks.com/matlabcentral/answers/518584-how-do-i-install-on-ubuntu
+	d. create symbolic link to bin so you can activate matlab from the command
+		https://www.mathworks.com/matlabcentral/answers/363731-create-symbolic-links-to-matlab-scripts-and-launcher-and-desktop-shortcut
+		$ sudo ln -s $HOME/LocalInstalls/MATLAB/2021b/bin/matlab /usr/local/bin/matlab
+	e. to have a matlab icon in favorites tab: https://www.mathworks.com/matlabcentral/answers/20-how-do-i-make-a-desktop-launcher-for-matlab-in-linux		$ sudo apt install matlab-support
+		
+	f. to enable keyboard shortcuts go to Matlab's preferences (under home tab)->  keyboard -> shortcuts -> change "Emacs" to "Windows"
+	https://www.mathworks.com/matlabcentral/answers/103161-why-am-i-unable-to-use-copy-ctrl-c-and-paste-ctrl-v-keyboard-short-cuts-in-the-text-editing-mode
+
+	note: this link also has a cool trick to create a gnome launcher icon to any app installed:	
+			'''
+			1. Create a linux .desktop file
+			$ touch ~/.local/share/applications/matlab.desktop
+			2. Add/copy relevant details for app launcher
+			[Desktop Entry]
+			Version=1.0
+			Type=Application
+			Terminal=false
+			Exec=/path/to/matlab -desktop
+			Name=MATLAB RXXXXx
+			Icon=/path/to/icon
+			Comment=MATLAB
+			where /path/to/matlab is recommended to use usr/local/MATLAB/RXXXXx/bin/glnxa64/MATLAB and /path/to/icon is usr/local/MATLAB/RXXXXx/bin/glnxa64/cef_resources/matlab_icon.png
+			3. Make the file executable
+			$ chmod +x ~/.local/share/applications/matlab.desktop
+			4. Test the application launcher from the menu
+			From here, I had issues with the icons/descriptions to show. To fix this, I did
+			5. Move matlab.desktop to the shared applications folder
+			$ sudo mv ~/.local/share/applications/matlab.desktop /usr/share/applications
+			$ sudo is required since the root folder is protected
+			'''
+
+	note: after running "$ matlab" I have had this message in the terminal: 
+		'Gtk-Message: 13:21:42.864: Failed to load module "canberra-gtk-module"'
+
+	
+	
+	
+
