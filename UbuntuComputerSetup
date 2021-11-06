@@ -232,7 +232,7 @@ https://www.ubuntu18.com/install-gdebi-ubuntu-18/
 		$ cd repos
 		$ git clone https://github.com/AtsushiSakai/PythonRobotics
 		$ cd PythonRobotics
-		$ python3 -m venv env #this will create a folder called env which will hold all the packages and the such. It is recommended to put it under git ignore
+		$ python3 -m venv env #this will create a folder called env which will hold all the packages and the such. It is recommended to put it under git ignore. DONT USE THIS METHOD. CALL VIRTUALENV TO CREATE VIRTUAL ENVIORMENT, NOT PYTHON.
 		$ source env/bin/activate %activate the enviorment
 		$ which python #confirm location of python interpreter:
 		$ pip3 install -r requirements.txt #installing packages from requirements.txt
@@ -242,7 +242,7 @@ https://www.ubuntu18.com/install-gdebi-ubuntu-18/
 		b) delete the env folder
 		c) create a new python2 enviorment, this time in a hidden folder -> $ virtualenv -p /usr/bin/python2.7 .venv
 		d) source the new enviorment -> $ source .venv/bin/activate
-		e) install the requirements -> $pip install -r requirements.txt
+		e) install the requirements -> $ pip install -r requirements.txt
 		!!! This also failed for some reason... I just installed the packages writen in requirements.txt manually
 		$pip install numpy
 		$pip install scipy
