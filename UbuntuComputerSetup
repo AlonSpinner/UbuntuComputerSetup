@@ -1054,7 +1054,21 @@ Notes on "sudo make install" vs "make install" from https://unix.stackexchange.c
 	note: after running "$ matlab" I have had this message in the terminal: 
 		'Gtk-Message: 13:21:42.864: Failed to load module "canberra-gtk-module"'
 
-	
-	
-	
+53) Installing xelatex on ubuntu to convert .ipynb to PDFS
+	# go here and do this : https://nbconvert.readthedocs.io/en/latest/install.html
+
+	OR (I did both)
+
+	#from https://nbconvert.readthedocs.io/en/latest/install.html#installing-tex
+	$ sudo apt-get install texlive-xetex texlive-fonts-recommended texlive-plain-generic
+	#from https://stackoverflow.com/questions/29156653/ipython-jupyter-problems-saving-notebook-as-pdf
+	$ sudo apt-get install texlive texlive-latex-extra pandoc texlive-generic-extra texlive-xetex
+
+	AND
+
+	pip install nbconvert[webpdf]
+
+	AND (at least for first time)
+
+	$ jupyter nbconvert --execute --to pdf notebook.ipynb --allow-chromium-download
 
