@@ -545,6 +545,18 @@ https://www.ubuntu18.com/install-gdebi-ubuntu-18/
 				Parameters:
 				Working Directory %f
 
+		for VScode:
+			COMMAND:
+				Path: code
+				Parameters: %f
+				Working Directory: %d
+
+		for Send2Shared:
+			COMMAND:
+				Path: cp
+				Parameters -i %f "/home/alon/VirtualBox VMs/Shared"
+				working directory: %d
+
 38) setting up zoom
 	$ sudo apt update	
 	$ wget -O /tmp/zoom.deb https://zoom.us/client/latest/zoom_amd64.deb
@@ -1072,3 +1084,16 @@ Notes on "sudo make install" vs "make install" from https://unix.stackexchange.c
 
 	$ jupyter nbconvert --execute --to pdf notebook.ipynb --allow-chromium-download
 
+54) using microsoft word through microsoft edge in ubnutu
+	https://www.omgubuntu.co.uk/2021/01/how-to-install-edge-on-ubuntu-linux
+
+	curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+	sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
+	sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main" 		> /etc/apt/sources.list.d/microsoft-edge-dev.list'
+	sudo rm microsoft.gpg
+
+	follow this to install windows word as an app:
+	(basically takes the online version and hooks up to it)
+	https://www.youtube.com/watch?v=1MvXOx8R0jg&ab_channel=InfinitelyGalactic
+
+	I decided not to work this way because it only works with files online.. not in the comnputer
