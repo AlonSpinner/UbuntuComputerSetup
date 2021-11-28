@@ -1097,3 +1097,16 @@ Notes on "sudo make install" vs "make install" from https://unix.stackexchange.c
 	https://www.youtube.com/watch?v=1MvXOx8R0jg&ab_channel=InfinitelyGalactic
 
 	I decided not to work this way because it only works with files online.. not in the comnputer
+
+55) Download Arduino IDE
+
+	$ cd ~/Downloads
+	$ wget https://downloads.arduino.cc/arduino-1.8.16-linux64.tar.xz #hopefuly this is the updated version, if it isnt.. just download it
+	$ tar -xvf arduino-1.8.16-linux64.tar.xz
+	$ cd arduino-1.8.16/
+	$ sudo ./install.sh
+
+	Once the installation is done, a desktop icon will be created on your desktop. The first 		time you launch it, it will prompt you to trust it with a message as shown below:
+	Click the Trust and Launch button to open the app.
+
+
