@@ -607,6 +607,9 @@ https://www.ubuntu18.com/install-gdebi-ubuntu-18/
 
 	"To install, type “sudo checkinstall” instead of 'sudo make install'. Then, 'checkinstall' will create a . deb file (Debian package) and install it"
 
+If you forgot to use checkinstall.... you bad boy. READ THIS:
+https://stackoverflow.com/questions/1439950/whats-the-opposite-of-make-install-i-e-how-do-you-uninstall-a-library-in-li#:~:text=If%20sudo%20make%20uninstall%20is,synaptic%20%2F%20aptitude%20%2F%20dpkg%20).
+
 47) fix my sony wh1000xm3 having ambient on even though I want noice cancelation (when connected to this ubuntu laptop, on phone works perfectly fine)
 	I MANAGED TO UPDATE BLUEZ PACKAGE BUT IT HAD NO AFFECT ON MY PROBLEM. LEARNT A FEW TRICKS IN THE PROCESS... BUT NOTHING TO DO HERE
 
