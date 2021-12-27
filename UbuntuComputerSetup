@@ -1113,3 +1113,55 @@ Notes on "sudo make install" vs "make install" from https://unix.stackexchange.c
 	Click the Trust and Launch button to open the app.
 
 
+56) install ifcplusplus - NOTE: THIS FAILLED THE MAKE COMMAND!
+
+edited from https://gist.github.com/berndhahnebach/e4d57634fe7eebbae537bf3da1b1b95a
+
+$ mkdir ifcplusplus
+$ cd ifcplusplus
+$ base_dir=`pwd`
+$ sudo apt update
+$ sudo apt upgrade
+
+$ packages_build="                \
+    git                         \
+    cmake                       \
+    g++                         \
+    libboost-all-dev            \
+    "
+
+$ sudo apt install -y $packages_build
+
+$ packages_qt5="\
+    qt5-qmake           \
+    libqt5widgets5      \
+    libqt5opengl5-dev   \
+    qttools5-dev        \
+    qtbase5-dev         \
+    "
+
+$ sudo apt install -y $packages_qt5
+
+$ packages_ifcpp="\
+    libopenscenegraph-3.4-dev
+    "
+$ sudo apt install -y $packages_ifcpp
+
+$ sudo apt update
+$ sudo apt clean
+
+$ mkdir ifcpp
+$ cd ifcpp
+$ git clone https://github.com/berndhahnebach/ifcplusplus/ ifcpp
+
+$ mkdir build
+$ cd build
+$ rm -rf *
+$ cmake  -DCMAKE_BUILD_TYPE=Debug ../ifcpp
+$ make OR $ make -j$(nproc) <------------------------------------------------------------------ FAILED
+
+$ sudo checkinstall
+
+
+
+
