@@ -1162,6 +1162,14 @@ $ make OR $ make -j$(nproc) <---------------------------------------------------
 
 $ sudo checkinstall
 
+57) Installing unity
+
+# Installation via unity hub which is a version-project control (cant open project with new version yada yada)
+# download from here https://unity.com/download
+# unzip, and then run the INSTALL.sh file.
+# May need to make an executible: chmod +x INSTALL.sh
+
+
 
 
 
