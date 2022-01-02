@@ -1024,6 +1024,13 @@ Notes on "sudo make install" vs "make install" from https://unix.stackexchange.c
 
 	# https://github.com/tpaviot/pythonocc-demos - DEMOS
 	# https://github.com/tpaviot/pythonocc-documentation - Documentation
+
+
+	--------------------------- NOTES FROM JANUARAY:
+	svgfill is a submodule that can be updated via "recursive" cloning... READ INSTRUCTIONS in https://github.com/IfcOpenShell/IfcOpenShell/
+	It still makes some problems... that can be solved if we read this issue throughly:
+	https://github.com/IfcOpenShell/IfcOpenShell/issues/1761
+	
 	
 
 51) Deja Dup backup my system!	
