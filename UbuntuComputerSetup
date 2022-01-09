@@ -1176,7 +1176,8 @@ $ sudo checkinstall
 # unzip, and then run the INSTALL.sh file.
 # May need to make an executible: chmod +x INSTALL.sh
 
-
+58) intsalling freecad
+https://techoverflow.net/2018/06/03/how-to-fix-freecad-no-module-named-webgui-on-ubuntu-18-04/
 
 
 
