@@ -1187,4 +1187,7 @@ https://techoverflow.net/2018/06/03/how-to-fix-freecad-no-module-named-webgui-on
 
 	$ sudo apt-get install libsuitesparse-dev
 
+60) install doxygen (used for https://github.com/ori-drs/isam)
+	$ sudo apt install doxygen
+
 
