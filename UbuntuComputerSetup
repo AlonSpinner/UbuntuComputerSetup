@@ -1178,6 +1178,13 @@ $ sudo checkinstall
 
 58) intsalling freecad
 https://techoverflow.net/2018/06/03/how-to-fix-freecad-no-module-named-webgui-on-ubuntu-18-04/
+	$ sudo add-apt-repository ppa:freecad-maintainers/freecad-stable
+	$ sudo apt-get update
+	$ sudo apt install freecad
 
+59) installing libsuitesparse (for isam, when trying to activate https://github.com/heemonsu/objectSLAM)
+	https://github.com/fdp0525/G2LTex/issues/2
+
+	$ sudo apt-get install libsuitesparse-dev
 
 
