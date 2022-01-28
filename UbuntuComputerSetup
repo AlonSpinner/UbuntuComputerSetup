@@ -519,6 +519,7 @@ https://www.ubuntu18.com/install-gdebi-ubuntu-18/
 	$ sudo apt install filemanager-actions-nautilus-extension
 
 	the program is called filemanager-actions and can be found through the "show applications"
+	can also be opned with $ fma-config-tool
 
 	Note about PPAs: from https://itsfoss.com/how-to-remove-or-delete-ppas-quick-tip/
 	'''
@@ -593,6 +594,14 @@ https://www.ubuntu18.com/install-gdebi-ubuntu-18/
 	b) https://blenderbim.org/download.html -> download for linux
 		-> open the installation instruction:
 			Open Blender -> Edit -> Preferences -> Add-Ons -> Choose the downloaded zip -> Install -> click the little box
+
+	28/1/2022: I tried to upgrade my blenderbim and fucked it all up. I think its not supposed to work with ubuntu 18.04 anymore. Trying to downgrade back somehow... 
+	check releases: https://github.com/IfcOpenShell/IfcOpenShell/releases
+	check issues: https://github.com/IfcOpenShell/IfcOpenShell/issues/1921 (I am getting the exact same error)
+	check older versions: https://blenderbim.org/builds/
+		*version 'blender28-bim-191013-linux.zip' works fine
+		*version 'blenderbim-210829-py39-linux' works fine
+		*version 'blenderbim-211031-py39-linux' FAILED.
 
 45) make microphone work
 	https://askubuntu.com/questions/508221/sound-input-device-microphone-not-working
@@ -794,6 +803,8 @@ Notes on "sudo make install" vs "make install" from https://unix.stackexchange.c
 
 49) getting ifcopenshell python source code - IN THE END I JUST USED CONDA TO GET THIS IN ARTICLE 50
 	http://ifcopenshell.org/python -> download the version you want, its the whole source
+	AMAZING TUTORIAL I SHOULD HAVE FOUND SOONER: https://wiki.freecadweb.org/IfcOpenShell<-------------- WATCH THIS
+	ALSO: https://www.youtube.com/watch?v=iBvRAUPO7fQ&ab_channel=ArtemBoiko - two hour video of installation
 	
 50) installing pythonocc-core, ifcopenshell AND miniconda #SKLIP ALL TILL LAST SECTION POINTED OUT WITH (SUCCESS!!!)
 	https://github.com/tpaviot/pythonocc-core
@@ -1208,6 +1219,10 @@ https://techoverflow.net/2018/06/03/how-to-fix-freecad-no-module-named-webgui-on
 	$ sudo apt-get install librealsense2-dev
 	$ sudo apt-get install librealsense2-dbg
 	$ realsense-viewer (activate)
+
+63) install meld for diff between txt files
+	$ sudo apt install meld
+	$ meld
 	
 
 
