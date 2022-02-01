@@ -135,6 +135,15 @@ https://www.ubuntu18.com/install-gdebi-ubuntu-18/
 	after reading about microsoft office's compatability in their forums I understood that they still have some problems. Virtual machine works great and I think I will stick with that.
 
 16) installing onedrive 
+
+	#31/1/2022: INSTEAD OF WHAT IS BELOW, I JUSTED USED THIS GUIDE:
+		#https://idroot.us/install-onedrive-ubuntu-20-04/
+		$ sudo apt update
+		$ sudo apt upgrade
+		$ sudo add-apt-repository ppa:yann1ck/onedrive
+		$ sudo apt install onedrive
+		$ onedrive --synchronize
+
 	following https://gist.github.com/starlinq/0f98c6d9339497bb8ac42d67f66f60eb
 
 	$ sudo apt install build-essential
@@ -323,6 +332,8 @@ https://www.ubuntu18.com/install-gdebi-ubuntu-18/
 
 
 23) Install ros melodic with all dependecies
+	# in 20.04 use the following link "https://wiki.ros.org/noetic/Installation/Ubuntu"
+
 	following http://wiki.ros.org/melodic/Installation/Ubuntu
 	
 	$ sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
@@ -385,6 +396,8 @@ https://www.ubuntu18.com/install-gdebi-ubuntu-18/
 	$ sudo apt install terminator
 
 	https://gnometerminator.blogspot.com/p/introduction.html
+	#use the following command to set default
+		$ sudo update-alternatives --config x-terminal-emulator
 
 30) install mendeley
 	from https://www.mendeley.com/guides/download-mendeley-desktop/ubuntu/instructions
@@ -509,7 +522,12 @@ https://www.ubuntu18.com/install-gdebi-ubuntu-18/
 
 36) Fixing monitor problems... https://askubuntu.com/questions/1033785/external-monitor-not-detected-on-ubuntu-18-04
 
-37) add apps to right click (I used it for gitkraken and terminator)
+37) add apps to right click nautilus-actions.
+	#in 20.04: 
+		$ sudo apt update
+		$ sudo apt -y install nautilus-actions
+		$ nautilus -q #restart nautilus after adding stuff 
+		# in program, go to edit->perferences-> runtime preferences, remove both V from both boxes in nautilus-menu-layout (nicer look)
 
 	https://ubuntuhandbook.org/index.php/2019/01/install-nautilus-actions-ubuntu-18-04/
 	https://www.youtube.com/watch?v=b2HAko2t__E&ab_channel=AJReissig
@@ -555,7 +573,7 @@ https://www.ubuntu18.com/install-gdebi-ubuntu-18/
 		for Send2Shared:
 			COMMAND:
 				Path: cp
-				Parameters -i %f "/home/alon/VirtualBox VMs/Shared"
+				Parameters: -i %f "/home/alon/VirtualBox VMs/Shared"
 				working directory: %d
 
 38) setting up zoom
@@ -601,7 +619,7 @@ https://www.ubuntu18.com/install-gdebi-ubuntu-18/
 	check older versions: https://blenderbim.org/builds/
 		*version 'blender28-bim-191013-linux.zip' works fine
 		*version 'blenderbim-210829-py39-linux' works fine
-		*version 'blenderbim-211031-py39-linux' FAILED.
+		*version 'blenderbim-211031-py39-linux' FAILED. (LATEST VERSION WILL WORK ON UBUNTU 20.04!)
 
 45) make microphone work
 	https://askubuntu.com/questions/508221/sound-input-device-microphone-not-working
