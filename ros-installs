@@ -1,0 +1,5 @@
+------------------ubuntu 18.04 - melodic:
+1)rtabmap
+	$ sudo apt install ros-melodic-rtabmap ros-melodic-rtabmap-ros
+	$ sudo apt install ros-melodic-realsense2-camera
+	$ sudo apt install ros-melodic-realsense2-description
