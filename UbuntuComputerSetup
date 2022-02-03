@@ -111,7 +111,7 @@ Computer Setup Instructions - dell xps 9575
 	I noticed I cant drag and drop in between discovered I had to install "windows guest additions"
 	This can be done automatically by going through the first two lines in section 4.2.1.1 in the link below (Devices->Insert Guest Addition CD Image...)
 	https://docs.oracle.com/en/virtualization/virtualbox/6.0/user/guestossupport.html -> Guest Additions
-	This is also a good video on the subject: 
+	This is also a good video on the subject:  https://www.youtube.com/watch?v=yrqy0Q_zhzI&ab_channel=TechMeSpot
 	Windows now had drivers install, it was much faster, and I could copy text from ubuntu host to windows guest.. but file dropping was still a problem for some reason.
 	
 	I also wanted to know how to do file sharing between the ubuntu host and windows guest
@@ -136,13 +136,17 @@ https://www.ubuntu18.com/install-gdebi-ubuntu-18/
 
 16) installing onedrive 
 
-	#31/1/2022: INSTEAD OF WHAT IS BELOW, I JUSTED USED THIS GUIDE:
+	#31/1/2022: FOR 20.04, INSTEAD OF WHAT IS BELOW, I JUSTED USED THIS GUIDE:
 		#https://idroot.us/install-onedrive-ubuntu-20-04/
 		$ sudo apt update
 		$ sudo apt upgrade
 		$ sudo add-apt-repository ppa:yann1ck/onedrive
 		$ sudo apt install onedrive
 		$ onedrive --synchronize
+
+		#INSTEAD OF WHAT IS BELOW, FOLLOW THIS:
+		https://github.com/abraunegg/onedrive/blob/master/docs/INSTALL.md#dependencies-ubuntu-18x-ubuntu-19x-ubuntu-20x--debian-9-debian-10---x86_64
+		to view configuration - "onedrive --display-config"
 
 	following https://gist.github.com/starlinq/0f98c6d9339497bb8ac42d67f66f60eb
 
@@ -402,7 +406,7 @@ https://www.ubuntu18.com/install-gdebi-ubuntu-18/
 30) install mendeley
 	from https://www.mendeley.com/guides/download-mendeley-desktop/ubuntu/instructions
 	$ sudo apt update
-	$ sudo apt install mendeleydesktop
+	$ sudo apt install ./mendeleydesktop
 
 31) Brasero for .iso backup of computer - Found this not so useful currently
 	from https://vitux.com/how-to-create-an-iso-file-in-ubuntu/
@@ -1019,7 +1023,7 @@ Notes on "sudo make install" vs "make install" from https://unix.stackexchange.c
 	$ wget https://repo.anaconda.com/miniconda/Miniconda3-py39_4.10.3-Linux-x86_64.sh
 	$ chmod +x Miniconda3-py39_4.10.3-Linux-x86_64.sh
 	$ ./Miniconda3-py39_4.10.3-Linux-x86_64.sh
-	# I installed miniconda3 in /home/alon/LocalInstalls
+	# I installed miniconda3 in /home/alon/LocalInstalls/miniconda3
 	'''
 	WARNING:
 	    You currently have a PYTHONPATH environment variable set. This may cause
@@ -1104,6 +1108,22 @@ Notes on "sudo make install" vs "make install" from https://unix.stackexchange.c
 
 	note: after running "$ matlab" I have had this message in the terminal: 
 		'Gtk-Message: 13:21:42.864: Failed to load module "canberra-gtk-module"'
+
+	I had a problem on my second installation (01/02/2022).
+	MATLAB was loading up slow, and when loaded an error would show:
+	"java.io.FileNotFoundException: /home/<user>/.matlab/R2021b/History.xml (Permission denied)"
+	solved with  this: https://stackoverflow.com/questions/28934046/matlab-error-when-opening-an-error-was-encountered-while-saving-the-command-his
+	$ sudo chmod -R 777 .matlab (in home directory) (DONT DO THIS)
+		-----> This may be really unadvisable:
+			https://www.google.com/search?q=chmod+-R+777&oq=chmod+-R+777&aqs=chrome..69i57.3282j0j4&sourceid=chrome&ie=UTF-8
+				#just unadviseable for servers... this is a private system. meh
+	to be safer I did this: $ sudo chown -R $LOGNAME: ~/.matlab
+	
+	I have a second warnning when opening matlab: "Warning: X does not support locale en_IL"
+	This was just a language thing I fixed by changing ubuntu settings. 
+	figured from here: https://ubuntuforums.org/showthread.php?t=1911860
+
+
 
 53) Installing xelatex on ubuntu to convert .ipynb to PDFS
 	# go here and do this : https://nbconvert.readthedocs.io/en/latest/install.html
