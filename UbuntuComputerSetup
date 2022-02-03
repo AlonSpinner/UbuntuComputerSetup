@@ -1074,7 +1074,7 @@ Notes on "sudo make install" vs "make install" from https://unix.stackexchange.c
 	b. download from the website - https://www.mathworks.com/downloads/web_downloads/
 	a. unzip
 	c. install (I installed on $HOME/LocalInstalls/MATLAB/2021b)
-		https://www.mathworks.com/matlabcentral/answers/518584-how-do-i-install-on-ubuntu
+		https://www.mathworks.com/matlabccmake ..entral/answers/518584-how-do-i-install-on-ubuntu
 	d. create symbolic link to bin so you can activate matlab from the command
 		https://www.mathworks.com/matlabcentral/answers/363731-create-symbolic-links-to-matlab-scripts-and-launcher-and-desktop-shortcut
 		$ sudo ln -s $HOME/LocalInstalls/MATLAB/2021b/bin/matlab /usr/local/bin/matlab
@@ -1257,6 +1257,19 @@ https://techoverflow.net/2018/06/03/how-to-fix-freecad-no-module-named-webgui-on
 	$ sudo apt-get install librealsense2-dev
 	$ sudo apt-get install librealsense2-dbg
 	$ realsense-viewer (activate)
+
+	Notes on using:
+		besides the sdk which I may not really want to use.
+		intel offers a bunch of tools. They are already installed on your computer. for 		information on them you can access:
+		https://github.com/IntelRealSense/librealsense/tree/master/tools
+		example:
+		look on rosbag-inspector 
+		---> see that the main file is called rs-rosbag-inspector.cpp  
+		---> that is the name of the command.
+		
+		hint: all other tool commands also start with "rs-", and I am most interersted in "rs-convert"
+
+		
 
 63) install meld for diff between txt files
 	$ sudo apt install meld
