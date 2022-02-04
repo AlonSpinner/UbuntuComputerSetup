@@ -187,13 +187,13 @@ recording point clouds using rtabmap+realsense d435
 		$ rosbag record -O temp.bag /camera/aligned_depth_to_color/image_raw /camera/color/camera_info /camera/color/image_raw /tf /tf_static
 
 		# STEP (B)
-		$ rosbag play --clock temp.bag
 		$ roslaunch rtabmap_ros rtabmap.launch \
     rtabmap_args:="--delete_db_on_start" \
     depth_topic:=/camera/aligned_depth_to_color/image_raw \
     rgb_topic:=/camera/color/image_raw \
     camera_info_topic:=/camera/color/camera_info \
     approx_sync:=false
+		$ rosbag play --clock temp.bag
 	
 	
 

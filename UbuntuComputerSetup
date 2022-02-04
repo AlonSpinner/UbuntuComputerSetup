@@ -352,6 +352,10 @@ https://www.ubuntu18.com/install-gdebi-ubuntu-18/
 	$ rosdep update
 
 	$ sudo apt-get install ros-melodic-catkin
+	
+	NOTE! when creating a workspace in melodic or under, use the following to enable python3
+	$ catkin_make -DPYTHON_EXECUTABLE=/usr/bin/python3
+	#from http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment
 
 24) nautiulus -> opening current directory in file explorer
 	$ nautilus "$(pwd)"
