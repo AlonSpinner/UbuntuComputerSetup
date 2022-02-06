@@ -1279,5 +1279,7 @@ https://techoverflow.net/2018/06/03/how-to-fix-freecad-no-module-named-webgui-on
 	$ sudo apt install meld
 	$ meld
 	
-
+64) intalled caffe (deep learning framework)
+	# http://caffe.berkeleyvision.org/install_apt.html 
+	$ sudo apt build-dep caffe-cpu 
 
