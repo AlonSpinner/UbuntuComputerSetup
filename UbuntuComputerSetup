@@ -1294,5 +1294,15 @@ https://techoverflow.net/2018/06/03/how-to-fix-freecad-no-module-named-webgui-on
 	$ sudo apt update  # not necessary since Bionic
 	# Install:
 	$ sudo apt install libgtsam-dev libgtsam-unstable-dev
+
+66) installing opengv
+	# https://laurentkneip.github.io/opengv/page_installation.html
+	$ git clone https://github.com/laurentkneip/opengv
+	$ cd opengv
+	$ sudo apt-get install build-essential
+	$ sudo apt-get install cmake
+	$ sudo apt-get install cmake libeigen3-dev
+	$ mkdir build && cd build && cmake .. && make
+	
 	
 
