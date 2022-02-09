@@ -1283,7 +1283,7 @@ https://techoverflow.net/2018/06/03/how-to-fix-freecad-no-module-named-webgui-on
 	# http://caffe.berkeleyvision.org/install_apt.html 
 	$ sudo apt build-dep caffe-cpu 
 
-65) installing gtsam
+65) installing gtsam #for kimera. evenutally found out that it was not needed.
  	#following https://gtsam.org/get_started/
 	$ sudo add-apt-repository ppa:borglab/gtsam-develop
 	$ sudo apt update  # not necessary since Bionic
@@ -1295,7 +1295,7 @@ https://techoverflow.net/2018/06/03/how-to-fix-freecad-no-module-named-webgui-on
 	# Install:
 	$ sudo apt install libgtsam-dev libgtsam-unstable-dev
 
-66) installing opengv
+66) installing opengv #for kimera. evenutally found out that it was not needed.
 	# https://laurentkneip.github.io/opengv/page_installation.html
 	$ git clone https://github.com/laurentkneip/opengv
 	$ cd opengv
@@ -1303,6 +1303,13 @@ https://techoverflow.net/2018/06/03/how-to-fix-freecad-no-module-named-webgui-on
 	$ sudo apt-get install cmake
 	$ sudo apt-get install cmake libeigen3-dev
 	$ mkdir build && cd build && cmake .. && make
+	$ sudo make install #not always a good idea....
 	
+
+67) linux monitoring processes 
+	$ sudo apt install htop
 	
+68) "Python /usr/bin/env: bad interpreter: Not a directory"
+	# https://stackoverflow.com/questions/30796142/python-usr-bin-env-bad-interpreter-not-a-directory
+	$ sudo apt-get install --reinstall coreutils
 
