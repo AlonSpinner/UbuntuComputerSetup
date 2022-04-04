@@ -144,36 +144,9 @@ https://www.ubuntu18.com/install-gdebi-ubuntu-18/
 		$ sudo apt install onedrive
 		$ onedrive --synchronize
 
-		#INSTEAD OF WHAT IS BELOW, FOLLOW THIS:
+	#FOLLOW THIS FOR 18.04:
 		https://github.com/abraunegg/onedrive/blob/master/docs/INSTALL.md#dependencies-ubuntu-18x-ubuntu-19x-ubuntu-20x--debian-9-debian-10---x86_64
 		to view configuration - "onedrive --display-config"
-
-	following https://gist.github.com/starlinq/0f98c6d9339497bb8ac42d67f66f60eb
-
-	$ sudo apt install build-essential
-	$ sudo apt install libcurl4-openssl-dev
-	$ sudo apt install libsqlite3-dev
-	$ sudo apt install pkg-config
-	$ sudo apt install git
-
-	$ cd ~/Downloads
-	$ sudo wget https://netcologne.dl.sourceforge.net/project/d-apt/files/d-apt.list -O /etc/apt/sources.list.d/d-apt.list
-	$ sudo apt-get update --allow-insecure-repositories
-	$ sudo apt-get -y --allow-unauthenticated install --reinstall d-apt-keyring
-	$ sudo apt-get update && sudo apt-get install dmd-compiler dub
-
-	$ git clone https://github.com/abraunegg/onedrive.git
-	$ cd onedrive
-	$ ./configure
-	$ make
-	$ sudo make install
-
-	$ onedrive -> authenticate
-
-	$ mkdir -p ~/OneDrive
-	$ cp config ~/.config/onedrive/config
-	$ cd
-	$ onedrive --synchronize
 
 	onedrive doesnt start when the user logs in. I will need to add "onedrive --monitor" to the command startup application
 	typing "how to add command to startup ubuntu" in google explained the "how to" right away.
@@ -305,6 +278,9 @@ https://www.ubuntu18.com/install-gdebi-ubuntu-18/
 		another good read for command and such: https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/
 
 21) install dropbox
+	INSTEAD OF WHAT IS BELOW: 
+		$ sudo apt install nautilus-dropbox (04.04.2022)
+
 	a) download the file from https://www.dropbox.com/install-linux
 	$ cd ~/Downloads
 	$ sudo gdebi dropbox*
@@ -588,7 +564,7 @@ https://www.ubuntu18.com/install-gdebi-ubuntu-18/
 	$ sudo apt update	
 	$ wget -O /tmp/zoom.deb https://zoom.us/client/latest/zoom_amd64.deb
 	$ sudo dpkg -i /tmp/zoom.deb -> produces an error
-	$ sudo apt-get install libxcb-xtest0 -> fixes the error
+	$ sudo apt-get install libxcb-xtest0 -> fixes the error (or this: $ sudo apt --fix-broken install
 	$ sudo dpkg -i /tmp/zoom.deb -> completes sucessfuly
 
 39) install numpy on default python interpeter
@@ -607,10 +583,11 @@ https://www.ubuntu18.com/install-gdebi-ubuntu-18/
 	$ watch -n 2 sensors
 
 42) installing julia
-	$ wget https://julialang-s3.julialang.org/bin/linux/x64/1.6/julia-1.6.3-linux-x86_64.tar.gz
-	$ tar -xvzf julia-1.6.3-linux-x86_64.tar.gz
-	$ sudo mv julia-1.6.3/ /opt/	
-	$ sudo ln -s /opt/julia-1.6.3/bin/julia /usr/local/bin/julia
+	#MAKE SURE TO CHECK IF NEWER VERSION ARE AVAILABLE
+		$ wget https://julialang-s3.julialang.org/bin/linux/x64/1.6/julia-1.6.3-linux-x86_64.tar.gz
+		$ tar -xvzf julia-1.6.3-linux-x86_64.tar.gz
+		$ sudo mv julia-1.6.3/ /opt/	
+		$ sudo ln -s /opt/julia-1.7./bin/julia /usr/local/bin/julia
 
 43) installing spotify
  	$ snap install spotify
