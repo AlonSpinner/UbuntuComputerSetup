@@ -150,6 +150,10 @@ https://www.ubuntu18.com/install-gdebi-ubuntu-18/
 
 	onedrive doesnt start when the user logs in. I will need to add "onedrive --monitor" to the command startup application
 	typing "how to add command to startup ubuntu" in google explained the "how to" right away.
+	this is a useful link: https://www.linuxuprising.com/2020/02/how-to-keep-onedrive-in-sync-with.html
+		$ systemctl --user enable onedrive
+		$ systemctl --user start onedrive
+		$ systemctl status --user onedrive
 
 	Finally, I shared the onedrive folder with my windows virtual machine :)
 
