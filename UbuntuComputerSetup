@@ -120,6 +120,9 @@ Computer Setup Instructions - dell xps 9575
 	One last thing.. "sending the shut down signal" didn't do anything. I had to go to the power options in the guest windows and change what pressing the power button does:
 	https://forums.virtualbox.org/viewtopic.php?f=8&t=98084
 
+	---------------------------SUPER IMPORTANT!! INSTALLING GUEST DRIVERS!!--------------------
+		https://www.youtube.com/watch?v=w03nH_6Ky-Y&ab_channel=ApkHeaven
+
 		
 14) install GDebi package installer
 https://www.ubuntu18.com/install-gdebi-ubuntu-18/
